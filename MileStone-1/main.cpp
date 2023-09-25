@@ -3,7 +3,6 @@
 #include <iostream>
 #include <algorithm>
 #include <iostream>
-#include <fstream>
 #include <cmath>
 using namespace std;
 
@@ -38,8 +37,8 @@ public:
         ingredients.push_back(ingredient);
     }
 
-    virtual void display() {
-        cout << "Title: " <<this->title << "\n";
+     void display() {
+        cout << "Title: " <<title << "\n";
         cout << "Tags: ";
         for (const auto& tag : tags) {
             cout << tag << " ";
