@@ -14,8 +14,18 @@ public:
     double quantity;
     string unit;
 
+    // Constructor to initialize Ingredient
     Ingredient(const string& n, const string& cat, double qty, const string& u)
-        : name(n), category(cat), quantity(qty), unit(u) {}
+        : name(n), category(cat), quantity(qty), unit(u) {
+            cout << "Ingredient object created: " << name << "\n";
+        }
+
+        
+    // Destructor to perform cleanup 
+    ~Ingredient() {
+        cout << "Ingredient object destroyed: " << name << "\n";
+    }
+
 
     void display() const {
         cout << name << ": " << quantity << " " << unit << " (" << category << ")\n";
@@ -30,15 +40,20 @@ public:
     string instructions;
     vector<string> tags;
 
-    Recipe(const string& t, const string& instr, const vector<string>& tgs)
-        : title(t), instructions(instr), tags(tgs) {}
+    Recipe(const string& title, const string& instructions, const vector<string>& tags)
+         {
+             //Using of THIS Pointer.
+            this->title=title;
+            this->instructions=instructions;
+            this->tags=tags;
+        }
 
     void addIngredient(const Ingredient& ingredient) {
         ingredients.push_back(ingredient);
     }
 
      void display() {
-        cout << "Title: " <<title << "\n";
+        cout << "Title: " << title<< "\n";
         cout << "Tags: ";
         for (const auto& tag : tags) {
             cout << tag << " ";
