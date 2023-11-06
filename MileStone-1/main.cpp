@@ -14,9 +14,12 @@ public:
     double quantity;
     string unit;
 
+    static int ingredientCount; // Static member variabl
+
     // Constructor to initialize Ingredient
     Ingredient(const string& n, const string& cat, double qty, const string& u)
         : name(n), category(cat), quantity(qty), unit(u) {
+            ingredientCount++;
             cout << "Ingredient object created: " << name << "\n";
         }
 
@@ -30,7 +33,14 @@ public:
     void display() const {
         cout << name << ": " << quantity << " " << unit << " (" << category << ")\n";
     }
+
+    // Static member function
+    static void printIngredientCount(){
+        cout << "Total NO.OF Ingredients: " << ingredientCount << endl;
+    }
 };
+
+int Ingredient::ingredientCount = 0; // Initialize the static member variable
 
 // Class for Recipe
 class Recipe {
@@ -79,6 +89,9 @@ public:
     }
 };
 
+
+//Inheritance used here by Recipe as main class:
+
 class VegetarianRecipe : public Recipe {
 public:
     VegetarianRecipe(const string& t, const string& instr, const vector<string>& tgs)
@@ -114,6 +127,8 @@ int main() {
     Ingredient chicken("Chicken", "Meat", 1, "kg");
     Ingredient sugar("Sugar", "Sweetener", 0.25, "cup");
 
+    // Access the static member variable and function
+    Ingredient::printIngredientCount();
     
     NonVegetarianRecipe Biryani("Chicken Biryani", "Fired Chicken biryani", {"Non-Veg", "mightbe UnHealthy"});
     Biryani.addIngredient(chicken);
