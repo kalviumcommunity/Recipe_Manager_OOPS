@@ -45,10 +45,10 @@ public:
     }
 
     // Destructor to perform cleanup
-    ~Ingredient()
-    {
-        cout << "Ingredient object destroyed: " << name << "\n";
-    }
+    // ~Ingredient()
+    // {
+    //     cout << "Ingredient object destroyed: " << name << "\n";
+    // }
 };
 
 int Ingredient::ingredientCount = 0; // Initialize the static member variable
@@ -59,7 +59,11 @@ class Recipe
 public:
     string title;
     //    vector<Ingredient> ingredients;
-    Ingredient ingredients[10];  // An array to store ingredients
+   // Ingredient ingredients[10]; 
+   // An array to store ingredients
+   Ingredient* ingredients; // Pointer to Ingredient objects
+    int maxIngredients;      // Maximum number of ingredients
+    int currentIngredients;  // Current number of ingredients
     string instructions;
     vector<string> tags;
 
@@ -69,6 +73,14 @@ public:
         this->title = title;
         this->instructions = instructions;
         this->tags = tags;
+        maxIngredients = 10; // Setting maximum ingredients
+        ingredients = new Ingredient[maxIngredients]; // Allocating memory dynamically
+        currentIngredients = 0;
+    }
+    // Destructor to free dynamically allocated memory
+    ~Recipe() {
+        delete[] ingredients;
+        cout<<"Ingredients are deleted"<<endl;
     }
 
     // void addIngredient(const Ingredient& ingredient) {
@@ -82,6 +94,7 @@ public:
             if (ingredients[i].isEmpty())
             {
                 ingredients[i] = ingredient;
+                currentIngredients++; // Increment the count of current ingredients
                 break;
             }
         }
@@ -96,12 +109,8 @@ public:
             cout << tag << " ";
         }
         cout << "\nIngredients:\n";
-        for (const auto &ingredient : ingredients)
-        {
-            if (!ingredient.isEmpty())
-            {
-                ingredient.display();
-            }
+        for (int i = 0; i < currentIngredients; ++i) {
+            ingredients[i].display();
         }
         cout << "Instructions:\n"
              << instructions << "\n";
